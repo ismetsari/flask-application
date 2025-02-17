@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-application
+  template:
+    metadata:
+      labels:
+        app: flask-application
+    spec:
+      containers:
+      - name: flask-application
+        image: ismetsari/flask-application:latest
+        imagePullPolicy: Always
+        env:
+        - name: MONGODB_URI
+          value: mongodb://mongo-service:27017/events
+        ports:
+        - containerPort: 5000
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
