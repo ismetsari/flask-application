@@ -17,6 +17,10 @@ flask-application/
 │   ├── requirements.txt     # Python dependencies
 │   └── venv/               # Python virtual environment
 ├── k8s/                    # Kubernetes manifests directory
+│   ├── flask-application-deployment.yaml
+│   ├── flask-application-service.yaml
+│   ├── mongo-deployment.yaml
+│   └── mongo-service.yaml
 ├── Dockerfile              # Docker configuration for containerization
 ├── Jenkinsfile            # Jenkins CI/CD pipeline configuration
 └── README.md              # Project documentation
@@ -26,6 +30,7 @@ flask-application/
 
 - Python 3.x
 - Docker (optional, for containerized deployment)
+- Minikube
 
 ## Installation
 
