@@ -57,7 +57,7 @@ def health():
 
 @app.route('/message', methods=['GET'])
 def message():
-    return jsonify({"message": "Hello from DevOps case study"})
+    return jsonify({"message": "Hello from DevOps case study v6"})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

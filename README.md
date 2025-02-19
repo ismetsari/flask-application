@@ -31,6 +31,7 @@ flask-application/
 - Python 3.x
 - Docker (optional, for containerized deployment)
 - Minikube
+- Jenkins
 
 ## Installation
 
