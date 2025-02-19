@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: flask-application
-        image: ismetsari/flask-application:latest
-        imagePullPolicy: Always
+        image: flask-application:latest
+        imagePullPolicy: Never
         env:
         - name: MONGODB_URI
           value: mongodb://mongo-service:27017/events

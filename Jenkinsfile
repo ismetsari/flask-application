@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'ismetsari/flask-application:latest'
+        DOCKER_IMAGE = 'flask-application:latest'
     }
 
     stages {
@@ -11,21 +11,11 @@ pipeline {
             steps {
                 sh '''
                 echo "Starting Docker Build"
-                cd /home/ismet/repository/flask-application
+                cd flask-application
+                eval $(minikube docker-env)
                 docker build --no-cache -t $DOCKER_IMAGE .
                 echo "Docker build completed successfully."
                 '''
-            }
-        }
-
-        stage('Push to Docker Hub') {
-            steps {
-                withDockerRegistry([credentialsId: 'dockerhub-credentials', url: 'https://index.docker.io/v1/']) {
-                    sh '''
-                    echo "image name is: ${DOCKER_IMAGE}"
-                    docker push $DOCKER_IMAGE
-                    '''
-                }
             }
         }
 
@@ -33,8 +23,10 @@ pipeline {
             steps {
                 sh '''
                 echo "Deployment starting."
-                cd /home/ismet/repository/flask-application
+                cd flask-application
                 kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f k8s/
+                # Force the pods to recreate by deleting them
+                #kubectl --kubeconfig=/var/lib/jenkins/.kube/config delete pods -l app=flask-application
                 kubectl --kubeconfig=/var/lib/jenkins/.kube/config rollout restart deployment flask-application
                 echo "Deployment completed successfully."
                 '''
