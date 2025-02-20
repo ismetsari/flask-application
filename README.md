@@ -138,14 +138,37 @@ kubectl get po
 
 ## How to Test Application
 
-1. If the pods are healthy, endpoints should be available.
-2. HTTP protocol is your-minikube-ip:30500
-3. If you go to your-minikube-ip:30500/health, you should see {"status": "ok"}
-4. If you goto your-minikube-ip:30500/message, you should see {"message": "Hello from DevOps case study"}
-5. If you want to check deployment, go to main.py and make some changes. For example change message to "Hello from DevOps case study v2".
-6. Run pipeline again.
-7. After pipeline is completed and pods are running again. Go to your-minikube-ip:30500/message, you should see new message.
+1. Verify Pod Health
 
+    Ensure that all pods are running and in a healthy state.
+
+2. Check Endpoints Availability
+
+    The application should be accessible via HTTP at your-minikube-ip:30500.
+
+3. Health Check
+
+    Navigate to your-minikube-ip:30500/health.
+    You should see the response: {"status": "ok"}.
+
+4. Message Endpoint Check
+
+    Navigate to your-minikube-ip:30500/message.
+    You should see the response: {"message": "Hello from DevOps case study"}.
+
+5. Modify the Deployment
+
+    Open main.py and update the message, for example:
+    Change "Hello from DevOps case study" to "Hello from DevOps case study v2".
+
+6. Run the Deployment Pipeline
+
+    Execute the pipeline to redeploy the application.
+
+7. Verify Deployment Update
+
+    Once the pipeline completes and the pods are running, navigate to your-minikube-ip:30500/message.
+    You should see the updated response: {"message": "Hello from DevOps case study v2"}.
 
 ## API Endpoints
 
@@ -163,7 +186,7 @@ kubectl get po
 
 This application includes a Jenkins pipeline configuration for automated building and deployment.
 
-## Future Work and Improvements
+## Future Works and Improvements
 
 - Code quality checks can be added to the pipeline.
 - Security checks can be added to the pipeline.
