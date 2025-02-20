@@ -67,16 +67,17 @@ git clone https://github.com/ismetsari/flask-application
 - Name pipeline as flask-api-pipeline(this is important since the name is used in commands)
 - Select "Pipeline" as item type and click "OK"
 - In the opened "Configuration" page, copy Jenkinsfile and paste it to script part and click "Save"
+- Click the "Build Now" button for the flask-api-pipeline. The build will fail, but this step is necessary for Jenkins to create the workspace mentioned in the next step.
 ```
 
-4. Move repository to Jenkins workspace. Jenkins creates dedicated workspace for every project we created from UI, we will move project to that workspace to avoid possible user permission issues.
+4. Move the repository to the Jenkins workspace. Jenkins crated a dedicated workspace for our project(mentioned in the previous step). To prevent potential permission issues, we will move the project to that workspace.
 ```bash
 sudo mv ~/flask-application /var/lib/jenkins/workspace/flask-api-pipeline
 ```
 
-5. Be sure that jenkins user is member of docker group. You can check it by using groups jenkins command. If jenkins is not a member, you need to add it by using usermod command.
+5. Ensure that the jenkins user is a member of the docker group. You can verify this by running the command **groups jenkins**. If the jenkins user is not a member, add it using the usermod command.
 ```bash
-sudo usermod -aG docker jenkins(check the name)
+sudo usermod -aG docker jenkins
 ```
 
 6. Start minikube
@@ -84,7 +85,9 @@ sudo usermod -aG docker jenkins(check the name)
 minikube start --driver=docker
 ```
 
-7. Jenkins uses user jenkins when it runs pipelines. Since then we need to have proper kubeconfig configuration and certificates for user. If you already have them for jenkins user you can skip this step. There are two ways to achive this.
+7. Jenkins runs pipelines using the jenkins user. To ensure proper Kubernetes access, the jenkins user must have a correctly configured kubeconfig and certificates. **If these are already set up, you can skip this step.** If not there are two ways to achieve this:
+
+**IMPORTANT NOTE:** 7.1 is a more robust approach, but it requires some UI configurations. To simplify the project setup for you, I used version 7.2, as it only requires a simple copy-paste.
 
 7.1 Storing kubeconfig file as Jenkins credentials (This is the more robust way)
 ```bash
@@ -96,8 +99,24 @@ minikube start --driver=docker
 - Click "Browse" and upload your kubeconfig file
 - In the "ID" field, enter a meaningful ID like kubeconfig-minikube
 - Click "OK" to save
+- Then change Deploy to Minikube stage in Jenkinsfile to below code.
 ```
-7.2 If you have them for some other user **login** to that user and copy kubeconfig and certificates to jenkins user.
+```bash
+    stage('Deploy to Minikube') {
+      steps {
+        withCredentials([file(credentialsId: 'kubeconfig-minikube', variable: 'KUBECONFIG')]) {
+          sh '''
+          echo "Deployment starting."
+          cd flask-application
+          kubectl --kubeconfig=$KUBECONFIG apply -f k8s/
+          kubectl --kubeconfig=$KUBECONFIG rollout restart deployment flask-application
+          echo "Deployment completed successfully."
+          '''
+        }
+      }
+    }
+```
+7.2 If you have them for some other user **login to that user** and copy kubeconfig and certificates to jenkins user.
 ```bash
 # Create .kube directory for jenkins user
 sudo mkdir -p /var/lib/jenkins/.kube
@@ -120,13 +139,13 @@ sudo find /var/lib/jenkins/.kube -type f -exec chmod 644 {} \;
 sudo find /var/lib/jenkins/.minikube -name "*.key" -exec chmod 600 {} \;
 ```
 
-8. After making these changes restart jenkins and docker services
+8. After making these changes restart jenkins and docker services.
 ```bash
 systemctl restart jenkins
 systemctl restart docker
 ```
 
-9. Restarting services can damage minikube. Check its status with minikube status command. If it is not running, you need to start it.
+9. Restarting services can affect Minikube. Check its status using the **minikube status** command. If it is not running, start it manually.
 ```bash
 minikube start --driver=docker
 ```
@@ -142,6 +161,7 @@ minikube start --driver=docker
 - Go to Jenkins UI
 - Click on "flask-api-pipeline" project
 - Click on "Console Output"
+- Ensure that the pipeline is completed successfully
 ```
 
 12. Now if you check pods. You should see 2 pods running.
@@ -201,6 +221,7 @@ This application includes a Jenkins pipeline configuration for automated buildin
 - Security checks can be added to the pipeline.(e.g. Trivy, SonarQube)
 - ReplicasCount in K8 deployments are set to 1 due to resource constraints. This can be increased for scalability purposes.
 - Docker compose file can be add for local development. This make developers life easier.
+- Pushing an image to the Minikube daemon is not a scalable approach. Using an image registry like Docker Hub provides a more robust and reusable solution. However, I didn’t use it because it would require sharing my personal Docker Hub credentials.
 
 ## License
 
