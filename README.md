@@ -52,7 +52,7 @@ flask-application/
 
 1. Install Prequisities:
 ```bash
-Install dependencies you can find in prequisities section
+- Install dependencies you can find in prequisities section
 ```
 
 2. Clone the repository:
@@ -62,7 +62,7 @@ git clone https://github.com/ismetsari/flask-application
 
 3. Go to Jenkins UI and configure the pipeline
 ```bash
-If you didn't specify any port, you can reach it from http://localhost:8080/
+- If you didn't specify any port, you can reach it from http://localhost:8080/
 - Click on "New Item" 
 - Name pipeline as flask-api-pipeline(this is important since the name is used in commands)
 - Select "Pipeline" as item type and click "OK"
@@ -139,12 +139,12 @@ kubectl get po
 ## How to Test Application
 
 1. If the pods are healthy, endpoints should be available.
-2. HTTP protocol is <your-minikube-ip>:30500
-3. If you go to <your-minikube-ip>:30500/health, you should see {"status": "ok"}
-4. If you goto <your-minikube-ip>:30500/message, you should see {"message": "Hello from DevOps case study"}
+2. HTTP protocol is your-minikube-ip:30500
+3. If you go to your-minikube-ip:30500/health, you should see {"status": "ok"}
+4. If you goto your-minikube-ip:30500/message, you should see {"message": "Hello from DevOps case study"}
 5. If you want to check deployment, go to main.py and make some changes. For example change message to "Hello from DevOps case study v2".
 6. Run pipeline again.
-7. After pipeline is completed and pods are running again. Go to <your-minikube-ip>:30500/message, you should see new message.
+7. After pipeline is completed and pods are running again. Go to your-minikube-ip:30500/message, you should see new message.
 
 
 ## API Endpoints
@@ -161,7 +161,7 @@ kubectl get po
 
 ## CI/CD
 
-This application includes a Jenkins pipeline configuration for automated building, testing, and deployment.
+This application includes a Jenkins pipeline configuration for automated building and deployment.
 
 ## Future Work and Improvements
 
