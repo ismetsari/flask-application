@@ -87,7 +87,7 @@ minikube start --driver=docker
 7. Jenkins uses user jenkins when it runs pipelines. Since then we need to have proper kubeconfig configuration and certificates for user. If you already have them for jenkins user you can skip this step. There are two ways to achive this.
 
 7.1 Storing kubeconfig file as Jenkins credentials (This is the more robust way)
-'''bash
+```bash
 - Log into Jenkins UI
 - Go to "Manage Jenkins" → "Credentials"
 - Click on the domain where you want to store credentials (typically "global")
@@ -96,7 +96,7 @@ minikube start --driver=docker
 - Click "Browse" and upload your kubeconfig file
 - In the "ID" field, enter a meaningful ID like kubeconfig-minikube
 - Click "OK" to save
-'''
+```
 7.2 If you have them for some other user **login** to that user and copy kubeconfig and certificates to jenkins user.
 ```bash
 # Create .kube directory for jenkins user
