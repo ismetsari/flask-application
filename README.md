@@ -79,12 +79,25 @@ sudo mv ~/flask-application /var/lib/jenkins/workspace/flask-api-pipeline
 sudo usermod -aG docker jenkins(check the name)
 ```
 
-5. Start minikube
+6. Start minikube
 ```bash
 minikube start --driver=docker
 ```
 
-6. Jenkins uses user jenkins when it runs pipelines. Since then we need to have proper kubeconfig configuration and certificates for user. If you already have them for jenkins user you can skip this step. If you have them for some other user login to that user and copy them to jenkins user with below commands. !!! kubectl command in pipeline is already modified like: sh 'kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f k8s/'
+7. Jenkins uses user jenkins when it runs pipelines. Since then we need to have proper kubeconfig configuration and certificates for user. If you already have them for jenkins user you can skip this step. There are two ways to achive this.
+
+7.1 Storing kubeconfig file as Jenkins credentials (This is the more robust way)
+'''bash
+- Log into Jenkins UI
+- Go to "Manage Jenkins" → "Credentials"
+- Click on the domain where you want to store credentials (typically "global")
+- Click "Add Credentials" in right top corner   
+- From the "Kind" dropdown, select "Secret file"
+- Click "Browse" and upload your kubeconfig file
+- In the "ID" field, enter a meaningful ID like kubeconfig-minikube
+- Click "OK" to save
+'''
+7.2 If you have them for some other user **login** to that user and copy kubeconfig and certificates to jenkins user.
 ```bash
 # Create .kube directory for jenkins user
 sudo mkdir -p /var/lib/jenkins/.kube
@@ -107,31 +120,31 @@ sudo find /var/lib/jenkins/.kube -type f -exec chmod 644 {} \;
 sudo find /var/lib/jenkins/.minikube -name "*.key" -exec chmod 600 {} \;
 ```
 
-7. After making these changes restart jenkins and docker services
+8. After making these changes restart jenkins and docker services
 ```bash
 systemctl restart jenkins
 systemctl restart docker
 ```
 
-7. Restarting services can damage minikube. Check its status with minikube status command. If it is not running, you need to start it.
+9. Restarting services can damage minikube. Check its status with minikube status command. If it is not running, you need to start it.
 ```bash
 minikube start --driver=docker
 ```
 
-8. Run pipeline from UI
+10. Run pipeline from UI
 ```bash
 - Go to Jenkins UI
 - Click on "Build Now" button for flask-api-pipeline
 ```
 
-9. Check the pipeline logs
+11. Check the pipeline logs
 ```bash
 - Go to Jenkins UI
 - Click on "flask-api-pipeline" project
 - Click on "Console Output"
 ```
 
-10. Now if you check pods. You should see 2 pods running.
+12. Now if you check pods. You should see 2 pods running.
 ```bash
 kubectl get po
 ```
@@ -184,8 +197,8 @@ This application includes a Jenkins pipeline configuration for automated buildin
 
 ## Future Works and Improvements
 
-- Code quality checks can be added to the pipeline.
-- Security checks can be added to the pipeline.
+- SonarQube can be added to the pipeline for code quality inspections.
+- Security checks can be added to the pipeline.(e.g. Trivy, SonarQube)
 - ReplicasCount in K8 deployments are set to 1 due to resource constraints. This can be increased for scalability purposes.
 - Docker compose file can be add for local development. This make developers life easier.
 

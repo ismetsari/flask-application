@@ -25,8 +25,6 @@ pipeline {
                 echo "Deployment starting."
                 cd flask-application
                 kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f k8s/
-                # Force the pods to recreate by deleting them
-                #kubectl --kubeconfig=/var/lib/jenkins/.kube/config delete pods -l app=flask-application
                 kubectl --kubeconfig=/var/lib/jenkins/.kube/config rollout restart deployment flask-application
                 echo "Deployment completed successfully."
                 '''
