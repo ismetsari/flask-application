@@ -29,9 +29,11 @@ flask-application/
 ## Prerequisites
 
 - Python 3.x
-- Docker (optional, for containerized deployment)
+- Docker 
 - Minikube
 - Jenkins
+- Kubectl
+- Git
 
 ## Installation
 
@@ -39,6 +41,12 @@ flask-application/
 ```bash
 git clone <repository-url>
 cd flask-application
+```
+2. Usermod 
+```bash
+git clone https://github.com/ismetsari/flask-application
+sudo usermod -aG docker $USER
+mv ~/flask-application /var/lib/jenkins/workspace/flask-api-pipeline(be careful about the name)
 ```
 
 2. Install the required dependencies:
