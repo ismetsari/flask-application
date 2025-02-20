@@ -142,24 +142,21 @@ kubectl get po
 
     Ensure that all pods are running and in a healthy state.
 
-2. Check Endpoints Availability
+2. Check Endpoints Availability 
 
-    The application should be accessible via HTTP at your-minikube-ip:30500.
+    The application should be accessible via HTTP at **your-minikube-ip:30500**.
 
 3. Health Check
 
-    Navigate to your-minikube-ip:30500/health.
-    You should see the response: {"status": "ok"}.
+    Navigate to **your-minikube-ip:30500/health**. You should see the response: {"status": "ok"}.
 
 4. Message Endpoint Check
 
-    Navigate to your-minikube-ip:30500/message.
-    You should see the response: {"message": "Hello from DevOps case study"}.
+    Navigate to **your-minikube-ip:30500/message**. You should see the response: {"message": "Hello from DevOps case study"}.
 
 5. Modify the Deployment
 
-    Open main.py and update the message, for example:
-    Change "Hello from DevOps case study" to "Hello from DevOps case study v2".
+    Open **main.py** and update the message, for example: Change "Hello from DevOps case study" to "Hello from DevOps case study v2".
 
 6. Run the Deployment Pipeline
 
@@ -167,8 +164,7 @@ kubectl get po
 
 7. Verify Deployment Update
 
-    Once the pipeline completes and the pods are running, navigate to your-minikube-ip:30500/message.
-    You should see the updated response: {"message": "Hello from DevOps case study v2"}.
+    Once the pipeline completes and the pods are running, navigate to **your-minikube-ip:30500/message**. You should see the updated response: {"message": "Hello from DevOps case study v2"}.
 
 ## API Endpoints
 
