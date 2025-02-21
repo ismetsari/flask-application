@@ -17,8 +17,8 @@ This is a basic Flask application that exposes two endpoints:
 - `/message` - Returns a greeting message
 
 ## Services
-- Flask API: Creates 2 endpoints and generates random payloads.
-- MongoDB: Stores the payloads.
+- **Flask API**: Creates 2 endpoints and generates random payloads.
+- **MongoDB**: Stores the payloads.
 
 ## Project Structure
 
@@ -154,7 +154,7 @@ minikube start --driver=docker
 - Click on "Console Output"
 - Ensure that the pipeline is completed successfully
 
-12. Now if you check pods. You should see 2 pods running.
+12. Now, if you check the pods, you should see two running: flask-application and mongo.
 ```bash
 kubectl get po
 ```
