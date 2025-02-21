@@ -78,7 +78,7 @@ git clone https://github.com/ismetsari/flask-application
 - Name pipeline as flask-api-pipeline(this is important since the name is used in commands)
 - Select "Pipeline" as item type and click "OK"
 - In the opened "Configuration" page, copy Jenkinsfile and paste it to script part and click "Save"
-- Click the "Build Now" button for the flask-api-pipeline. The build will fail, but this step is necessary for Jenkins to create the workspace mentioned in the next step.
+- Click the "Build Now" button for the flask-api-pipeline. The build will fail, but this step is necessary for Jenkins to create the workspace mentioned in the next step. You can also create directory manually but this is easier.
 
 4. Move the repository to the Jenkins workspace. Jenkins crated a dedicated workspace for our project(mentioned in the previous step). To prevent potential permission issues, we will move the project to that workspace.
 ```bash
