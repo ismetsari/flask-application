@@ -17,7 +17,7 @@ This is a basic Flask application that exposes two endpoints:
 - `/message` - Returns a greeting message
 
 ## Services
-- Flask API: Creates 2 endpoints and genereates random payloads.
+- Flask API: Creates 2 endpoints and generates random payloads.
 - MongoDB: Stores the payloads.
 
 ## Project Structure
@@ -51,9 +51,7 @@ flask-application/
 ## Installation
 
 1. Install Prequisities:
-```bash
 - Install dependencies you can find in prequisities section
-```
 
 2. Clone the repository:
 ```bash
@@ -83,7 +81,7 @@ sudo usermod -aG docker jenkins
 minikube start --driver=docker
 ```
 
-7. Jenkins runs pipelines using the jenkins user. To ensure proper Kubernetes access, the jenkins user must have a correctly configured kubeconfig and certificates. **If these are already set up, you can skip this step.** If not there are two ways to achieve this:
+7. Jenkins runs pipelines using the jenkins user. To ensure proper Kubernetes access, the jenkins user must have a correctly configured kubeconfig and certificates. **If these are already set up, you can skip step7 completely.** If not there are two ways to achieve this:
 
 **IMPORTANT NOTE:** 7.1 is a more robust approach, but it requires some UI configurations. To simplify the project setup for you, I used 7.2, as it only requires a simple copy-paste.
 
