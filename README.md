@@ -39,15 +39,15 @@ flask-application/
 ├── app/
 │   ├── main.py              # Main application file with Flask routes
 │   ├── requirements.txt     # Python dependencies
-│   └── venv/               # Python virtual environment
-├── k8s/                    # Kubernetes manifests directory
+│   └── venv/                # Python virtual environment
+├── k8s/                     # Kubernetes manifests directory
 │   ├── flask-application-deployment.yaml
 │   ├── flask-application-service.yaml
 │   ├── mongo-deployment.yaml
 │   └── mongo-service.yaml
-├── Dockerfile              # Docker configuration for containerization
-├── Jenkinsfile            # Jenkins CI/CD pipeline configuration
-└── README.md              # Project documentation
+├── Dockerfile               # Docker configuration for containerization
+├── Jenkinsfile              # Jenkins CI/CD pipeline configuration
+└── README.md                # Project documentation
 ```
 
 ## Prerequisites
@@ -73,7 +73,7 @@ git clone https://github.com/ismetsari/flask-application
 ```
 
 3. Go to Jenkins UI and configure the pipeline
-- If you didn't specify any port, you can reach it from http://localhost:8080/
+- If you did not specify any port, you can reach it from http://localhost:8080/
 - Click on "New Item" 
 - Name pipeline as flask-api-pipeline(this is important since the name is used in commands)
 - Select "Pipeline" as item type and click "OK"
@@ -233,7 +233,7 @@ This application includes a Jenkins pipeline configuration for automated buildin
 - Security checks can be added to the pipeline.(e.g. Trivy, SonarQube)
 - ReplicasCount in K8 deployments are set to 1 due to resource constraints. This can be increased for scalability purposes.
 - Docker compose file can be add for local development. This make developers life easier.
-- Pushing an image to the Minikube daemon is not a scalable approach. Using an image registry like Docker Hub offers a more robust and reusable solution. However, I didn't use it because I don't have access to the company's Docker account. 🙂
+- Pushing an image to the Minikube daemon is not a scalable approach. Using an image registry like Docker Hub offers a more robust and reusable solution. However, I did not use it because I don't have access to the company's Docker account. 🙂
 
 ## License
 
