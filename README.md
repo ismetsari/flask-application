@@ -109,7 +109,7 @@ minikube start --driver=docker
 - In the "ID" field, enter a meaningful ID like kubeconfig-minikube
 - Click "OK" to save
 - Then change **Deploy to Minikube** stage in Jenkinsfile to below code.
-- You also need to apply same stages for certificates.
+- You also need to apply same stages for certificates. Do not forget to reference the credentials and add them to kubectl command.
 ```bash
     stage('Deploy to Minikube') {
       steps {
