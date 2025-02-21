@@ -61,14 +61,12 @@ git clone https://github.com/ismetsari/flask-application
 ```
 
 3. Go to Jenkins UI and configure the pipeline
-```bash
 - If you didn't specify any port, you can reach it from http://localhost:8080/
 - Click on "New Item" 
 - Name pipeline as flask-api-pipeline(this is important since the name is used in commands)
 - Select "Pipeline" as item type and click "OK"
 - In the opened "Configuration" page, copy Jenkinsfile and paste it to script part and click "Save"
 - Click the "Build Now" button for the flask-api-pipeline. The build will fail, but this step is necessary for Jenkins to create the workspace mentioned in the next step.
-```
 
 4. Move the repository to the Jenkins workspace. Jenkins crated a dedicated workspace for our project(mentioned in the previous step). To prevent potential permission issues, we will move the project to that workspace.
 ```bash
@@ -87,10 +85,9 @@ minikube start --driver=docker
 
 7. Jenkins runs pipelines using the jenkins user. To ensure proper Kubernetes access, the jenkins user must have a correctly configured kubeconfig and certificates. **If these are already set up, you can skip this step.** If not there are two ways to achieve this:
 
-**IMPORTANT NOTE:** 7.1 is a more robust approach, but it requires some UI configurations. To simplify the project setup for you, I used version 7.2, as it only requires a simple copy-paste.
+**IMPORTANT NOTE:** 7.1 is a more robust approach, but it requires some UI configurations. To simplify the project setup for you, I used 7.2, as it only requires a simple copy-paste.
 
 7.1 Storing kubeconfig file as Jenkins credentials (This is the more robust way)
-```bash
 - Log into Jenkins UI
 - Go to "Manage Jenkins" → "Credentials"
 - Click on the domain where you want to store credentials (typically "global")
@@ -100,7 +97,6 @@ minikube start --driver=docker
 - In the "ID" field, enter a meaningful ID like kubeconfig-minikube
 - Click "OK" to save
 - Then change Deploy to Minikube stage in Jenkinsfile to below code.
-```
 ```bash
     stage('Deploy to Minikube') {
       steps {
@@ -151,18 +147,14 @@ minikube start --driver=docker
 ```
 
 10. Run pipeline from UI
-```bash
 - Go to Jenkins UI
 - Click on "Build Now" button for flask-api-pipeline
-```
 
 11. Check the pipeline logs
-```bash
 - Go to Jenkins UI
 - Click on "flask-api-pipeline" project
 - Click on "Console Output"
 - Ensure that the pipeline is completed successfully
-```
 
 12. Now if you check pods. You should see 2 pods running.
 ```bash
