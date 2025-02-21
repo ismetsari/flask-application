@@ -1,8 +1,8 @@
 # Flask Application
 
-A simple Flask REST API application that provides health check and message endpoints also creates a random payload and stores it in MongoDB.
+A simple Flask REST API application that provides health check and message endpoints also creates a random payload and stores them in MongoDB.
 
-## Why This Project?
+## Why I Picked This Project?
 
 - Simple and functional
 - Multiple endpoints
@@ -62,6 +62,8 @@ flask-application/
 
 ## Installation
 
+**NOTE:** It is recommended to have more than 4GB of memory to prevent issues during pipeline execution; otherwise, new pods may get stuck in a pending state.
+
 1. Install Prequisities:
 - Install dependencies you can find them in prequisities section above
 
@@ -93,7 +95,7 @@ sudo usermod -aG docker jenkins
 minikube start --driver=docker
 ```
 
-7. Jenkins runs pipelines using the jenkins user. To ensure proper Kubernetes access, the jenkins user must have a correctly configured kubeconfig and certificates. **If these are already set up, you can skip step7 completely.** If not there are two ways to achieve this:
+7. Jenkins runs pipelines using the jenkins user. To ensure proper Kubernetes access, the jenkins user must have a correctly configured kubeconfig and certificates. **If these are already set up, you can skip step 7 completely.** If not there are two ways to achieve this:
 
 **IMPORTANT NOTE:** 7.1 is a more robust approach, but it requires some UI configurations. To simplify the project setup for you, I used 7.2, as it only requires a simple copy-paste.
 
@@ -106,7 +108,8 @@ minikube start --driver=docker
 - Click "Browse" and upload your kubeconfig file
 - In the "ID" field, enter a meaningful ID like kubeconfig-minikube
 - Click "OK" to save
-- Then change Deploy to Minikube stage in Jenkinsfile to below code.
+- Then change **Deploy to Minikube** stage in Jenkinsfile to below code.
+- You also need to apply same stages for certificates.
 ```bash
     stage('Deploy to Minikube') {
       steps {
@@ -122,7 +125,7 @@ minikube start --driver=docker
       }
     }
 ```
-7.2 If you have them for some other user **login to that user** and copy kubeconfig and certificates to jenkins user.
+7.2 If they exist for another user, **log in to that user** and copy the kubeconfig and certificates to the Jenkins user's target directory.
 ```bash
 # Create .kube directory for jenkins user
 sudo mkdir -p /var/lib/jenkins/.kube
@@ -230,7 +233,7 @@ This application includes a Jenkins pipeline configuration for automated buildin
 - Security checks can be added to the pipeline.(e.g. Trivy, SonarQube)
 - ReplicasCount in K8 deployments are set to 1 due to resource constraints. This can be increased for scalability purposes.
 - Docker compose file can be add for local development. This make developers life easier.
-- Pushing an image to the Minikube daemon is not a scalable approach. Using an image registry like Docker Hub provides a more robust and reusable solution. However, I didn’t use it because it would require sharing my personal Docker Hub credentials.
+- Pushing an image to the Minikube daemon is not a scalable approach. Using an image registry like Docker Hub offers a more robust and reusable solution. However, I didn't use it because I don't have access to the company's Docker account. 🙂
 
 ## License
 
