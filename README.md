@@ -20,6 +20,18 @@ This is a basic Flask application that exposes two endpoints:
 - **Flask API**: Creates 2 endpoints and generates random payloads.
 - **MongoDB**: Stores the payloads.
 
+## API Endpoints
+
+### Health Check
+- **URL**: `/health`
+- **Method**: `GET`
+- **Response**: `{"status": "ok"}`
+
+### Message
+- **URL**: `/message`
+- **Method**: `GET`
+- **Response**: `{"message": "Hello from DevOps case study"}`
+
 ## Project Structure
 
 ```
@@ -51,7 +63,7 @@ flask-application/
 ## Installation
 
 1. Install Prequisities:
-- Install dependencies you can find in prequisities section
+- Install dependencies you can find them in prequisities section above
 
 2. Clone the repository:
 ```bash
@@ -207,17 +219,6 @@ kubectl get po
     ```bash
     db.events.find()
     ```
-## API Endpoints
-
-### Health Check
-- **URL**: `/health`
-- **Method**: `GET`
-- **Response**: `{"status": "ok"}`
-
-### Message
-- **URL**: `/message`
-- **Method**: `GET`
-- **Response**: `{"message": "Hello from DevOps case study"}`
 
 ## CI/CD
 
