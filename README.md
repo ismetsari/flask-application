@@ -2,7 +2,7 @@
 
 A simple Flask REST API application that provides health check and message endpoints also creates a random payload and stores them in MongoDB.
 
-## Why I Picked This Project?
+## Why Did I Choose This Project?
 
 - Simple and functional
 - Multiple endpoints
