@@ -171,15 +171,15 @@ kubectl get po
 
 3. Health Check
 
-    Navigate to **your-minikube-ip:30500/health**. You should see the response: {"status": "ok"}.
+    Navigate to **your-minikube-ip:30500/health**. You should see the response: status: "ok".
 
 4. Message Endpoint Check
 
-    Navigate to **your-minikube-ip:30500/message**. You should see the response: {"message": "Hello from DevOps case study"}.
+    Navigate to **your-minikube-ip:30500/message**. You should see the response: message: "Hello from DevOps case study".
 
 5. Modify the Deployment
 
-    Open **main.py** and update the message, for example: Change "Hello from DevOps case study" to "Hello from DevOps case study v2".
+    Open **main.py** and update the message, for example: Change "Hello from DevOps case study" to "Hello from Arf's DevOps case study".
 
 6. Run the Deployment Pipeline
 
@@ -187,8 +187,26 @@ kubectl get po
 
 7. Verify Deployment Update
 
-    Once the pipeline completes and the pods are running, navigate to **your-minikube-ip:30500/message**. You should see the updated response: {"message": "Hello from DevOps case study v2"}.
+    Once the pipeline completes and the pods are running, navigate to **your-minikube-ip:30500/message**. You should see the updated response: message: "Hello from Arf's DevOps case study".
 
+8. Check entries in MongoDB
+
+    Exec it mongo pod 
+    ```bash
+    kubectl exec -it **mongo-pod-name** -- sh
+    ```
+    Swith to mongoshell
+    ```bash
+    mongosh
+    ```
+    Pick the database
+    ```bash
+    use events_db
+    ```
+    Print all entries
+    ```bash
+    db.events.find()
+    ```
 ## API Endpoints
 
 ### Health Check
